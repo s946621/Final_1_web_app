@@ -132,21 +132,26 @@ def register():
         elif not is_valid_password(password):
             error = "Password must include uppercase, lowercase, number, and special character"
         else:
+            conn = get_db()
             try:
                 # Hash password with bcrypt
                 hashed_pw = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
 
-                conn = get_db()
                 conn.execute(
                     "INSERT INTO users (username, password) VALUES (?, ?)",
                     (username, hashed_pw)
                 )
                 conn.commit()
-                conn.close()
 
                 return redirect(url_for("login"))
             except sqlite3.IntegrityError:
+                conn.rollback()
                 error = "Username already exists"
+            except Exception:
+                conn.rollback()
+                error = "Unexpected error during registration"
+            finally:
+                conn.close()
 
     return render_template_string(register_page, error=error)
 
