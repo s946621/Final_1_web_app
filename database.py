@@ -5,6 +5,11 @@ def get_db():
     conn.row_factory = sqlite3.Row
     return conn
 
+def get_entries_db():
+    conn = sqlite3.connect("entries.db")
+    conn.row_factory = sqlite3.Row
+    return conn
+
 def init_db():
     conn = get_db()
     # Add your new table between lines 15 & 16.
@@ -14,11 +19,16 @@ def init_db():
             password TEXT
         )
     """)
-    conn.execute("""
+    conn.commit()
+    conn.close()
+
+    e_conn = get_entries_db()
+    e_conn.execute("""
         CREATE TABLE IF NOT EXISTS entries (
-            created_on TEXT DEFAULT CURRENT_DATE PRIMARY KEY,
+            author TEXT PRIMARY KEY,
+            created_on TEXT DEFAULT CURRENT_DATE,
             content TEXT
         )
     """)
-    conn.commit()
-    conn.close()
+    e_conn.commit()
+    e_conn.close()

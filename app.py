@@ -3,7 +3,8 @@
 # pip install flask
 
 from flask import Flask, request, redirect, url_for, render_template, session
-from database import get_db, init_db
+from database import get_db, init_db, get_entries_db
+from seed_db import seed_database
 import bcrypt
 import re
 
@@ -130,6 +131,8 @@ def create():
 
     return render_template("create.html")
 """
+
+seed_database()
 
 # ---------- UPDATE ----------
 # TODO: Create a route like /edit/<id>
