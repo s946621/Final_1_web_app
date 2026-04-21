@@ -16,7 +16,7 @@ def init_db():
     """)
     conn.execute("""
         CREATE TABLE IF NOT EXISTS entries (
-            author_name TEXT PRIMARY KEY,
+            created_on TEXT DEFAULT CURRENT_DATE PRIMARY KEY,
             content TEXT
         )
     """)
