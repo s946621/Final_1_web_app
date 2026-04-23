@@ -1,13 +1,13 @@
 body {
     font-family: Arial, sans-serif;
-    background: #eb6fe4;
+    background: #c746c0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 .card {
-    background: rgb(231, 245, 106);
+    background: rgb(238, 151, 255);
     padding: 25px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -22,10 +22,10 @@ input {
 button {
     padding: 10px;
     width: 60%;
-    background: #4CAF50;
-    color: white;
+    background: #e4ff4a;
+    color: rgb(0, 0, 0);
     border: none;
 }
 .error {
-    color: red;
+    color: rgb(26, 0, 121);
 }
