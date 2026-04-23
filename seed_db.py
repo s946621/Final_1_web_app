@@ -25,11 +25,13 @@ def seed_database():
         ("alice", "Password123!"),
         ("bob", "SecurePass456@"),
         ("charlie", "MyPassword789#"),
+        ("Aa!1", "A!a1")
     ]
     entries = [
         ("alice", "2016-03-24", "I am alice. Nice to meet you."),
         ("bob", "1824-03-31", "Bob me is."),
-        ("charlie", "2222-02-22", "CHARLIE!!!!!")
+        ("charlie", "2222-02-22", "CHARLIE!!!!!"),
+        ("Aa!1", "2020-01-01", "Happy new year!")
     ]
     
     try:

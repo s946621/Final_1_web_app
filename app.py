@@ -4,14 +4,14 @@
 
 from flask import Flask, request, redirect, url_for, render_template, session
 from database import get_db, init_db, get_entries_db
-from seed_db import seed_database
+# from seed_db import seed_database
 import bcrypt
 import re
 
 app = Flask(__name__)
 app.secret_key = "supersecretkey"
 
-init_db()
+# init_db()
 
 # ---------- PASSWORD VALIDATION ----------
 def is_valid_password(password):
@@ -39,7 +39,7 @@ def login():
 
         if user and bcrypt.checkpw(password.encode("utf-8"), user["password"]):
             session["user"] = username
-            return redirect(url_for("secret"))
+            return redirect(url_for("secret"), username)
         else:
             error = "Incorrect username or password"
 
@@ -76,33 +76,26 @@ def register():
 
     return render_template("register.html", error=error)
 
-@app.route("/secret")
+@app.route("/dashboard")
 def secret():
-    # TODO: RENAME THIS ROUTE TO /dashboard
-
     if "user" not in session:
         return redirect(url_for("login"))
 
-    # TODO: Connect to the database
-    # conn = get_db()
+    e_conn = get_entries_db()
 
-    # TODO: Get all entries that belong to the logged-in user
-    # Example:
-    # entries = conn.execute(
-    #     "SELECT * FROM entries WHERE user=?",
-    #     (session["user"],)
-    # ).fetchall()
+    entries = e_conn.execute(
+        "SELECT * FROM entries WHERE entries=?",
+        (session["entries"],)
+    ).fetchall()
 
-    # TODO: Close the connection
-    # conn.close()
+    e_conn.close()
 
     # TODO: Pass entries into your template
     # Example:
-    # return render_template("dashboard.html", entries=entries, username=session["user"])
+    return render_template("dashboard.html", entries=entries, username=session["user"])
 
     # TEMPORARY (remove later)
-    return render_template("secret.html", username=session["user"])
-
+    # return render_template("secret.html", username=session["user"])
 
 # ---------- CREATE ----------
 # TODO: Create a route like /create
@@ -132,7 +125,7 @@ def create():
     return render_template("create.html")
 """
 
-seed_database()
+# seed_database()
 
 # ---------- UPDATE ----------
 # TODO: Create a route like /edit/<id>
