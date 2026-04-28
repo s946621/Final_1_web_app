@@ -94,9 +94,6 @@ def dashboard():
     # Example:
     return render_template("dashboard.html", entries=entries, username=session["user"])
 
-    # TEMPORARY (remove later)
-    # return render_template("secret.html", username=session["user"])
-
 # ---------- CREATE ----------
 # TODO: Create a route like /create
 # This page should:
@@ -104,7 +101,7 @@ def dashboard():
 # - Save data to the database (POST)
 # - Redirect back to dashboard
 # NOTE: Remove the triple """ before and after each route to 'uncomment'
-"""
+
 @app.route("/create", methods=["GET", "POST"])
 def create():
     if "user" not in session:
@@ -123,7 +120,6 @@ def create():
         return redirect(url_for("dashboard"))
 
     return render_template("create.html")
-"""
 
 # seed_database()
 
