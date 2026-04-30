@@ -18,12 +18,12 @@ input {
     width: 90%;
     padding: 8px;
     margin: 8px 0;
-    background-color: rgb(26, 0, 121);
+    background-color: rgb(249, 255, 220);
 }
 button {
     padding: 10px;
     width: 60%;
-    background: #e4ff4a;
+    background: rgb(228, 255, 74);
     color: rgb(0, 0, 0);
     border: none;
 }
