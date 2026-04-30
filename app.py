@@ -3,15 +3,12 @@
 # pip install flask
 
 from flask import Flask, request, redirect, url_for, render_template, session
-from database import get_db, init_db, get_entries_db
-# from seed_db import seed_database
+from database import get_db
 import bcrypt
 import re
 
 app = Flask(__name__)
 app.secret_key = "supersecretkey"
-
-# init_db()
 
 # ---------- PASSWORD VALIDATION ----------
 def is_valid_password(password):
@@ -39,7 +36,7 @@ def login():
 
         if user and bcrypt.checkpw(password.encode("utf-8"), user["password"]):
             session["user"] = username
-            return redirect(url_for("dashboard"), username)
+            return redirect(url_for("dashboard"))
         else:
             error = "Incorrect username or password"
 
@@ -67,10 +64,9 @@ def register():
                 )
                 conn.commit()
 
-                return redirect(url_for("login"))
+                return redirect(url_for("dashboard"))
             except:
                 conn.rollback()
-                error = "Username already exists or error occurred"
             finally:
                 conn.close()
 
@@ -81,18 +77,26 @@ def dashboard():
     if "user" not in session:
         return redirect(url_for("login"))
 
-    e_conn = get_entries_db()
+    # TODO: Connect to the database
+    conn = get_db()
 
-    entries = e_conn.execute(
-        "SELECT * FROM entries WHERE entries=?",
-        (session["entries"],)
+    # TODO: Get all entries that belong to the logged-in user
+    # Example:
+    entries = conn.execute(
+        "SELECT * FROM entries WHERE author=?",
+        (session["user"],)
     ).fetchall()
 
-    e_conn.close()
+    # TODO: Close the connection
+    conn.close()
 
     # TODO: Pass entries into your template
     # Example:
     return render_template("dashboard.html", entries=entries, username=session["user"])
+
+    # TEMPORARY (remove later)
+    # return render_template("dashboard.html", username=session["user"])
+
 
 # ---------- CREATE ----------
 # TODO: Create a route like /create
@@ -108,20 +112,28 @@ def create():
         return redirect(url_for("login"))
 
     if request.method == "POST":
-        # TODO: Get form data (title, content)
+        title = request.form["title"].strip()
+        content = request.form["content"].strip()
 
-        # TODO: Connect to database
+        conn = get_db()
 
-        # TODO: Insert into entries table
-        # IMPORTANT: include session["user"]
+        try:
+                conn.execute(
+                    "INSERT INTO entries (author, title, content) VALUES (?, ?, ?)",
+                    (session["user"], title, content,)
+                )
+                conn.commit()
 
-        # TODO: Commit and close
+                return redirect(url_for("dashboard"))
+        except:
+                conn.rollback()
+        finally:
+                conn.close()
 
         return redirect(url_for("dashboard"))
 
     return render_template("create.html")
 
-# seed_database()
 
 # ---------- UPDATE ----------
 # TODO: Create a route like /edit/<id>

@@ -9,7 +9,7 @@
 <h3>Welcome, {{ username }}!</h3>
 
 <!-- TODO: Add a button or link to create a new entry -->
-<a href="/create">Create New Entry</a> -->
+<a href="/create">Create New Entry</a>
 
 <br><br>
 
@@ -17,11 +17,10 @@
 <!-- The variable "entries" will come from your Flask route -->
 <!-- Example structure: -->
 
-<!--
+
 {% for entry in entries %}
     <div>
         <h3>{{ entry['title'] }}</h3>
-        <p>{{ entry['content'] }}</p>
 
         <!-- TODO: Add Edit link -->
         <!-- Example: /edit/{{ entry['id'] }} -->
@@ -32,7 +31,7 @@
     </div>
     <hr>
 {% endfor %}
--->
+
 
 <!-- TODO: If no entries exist, display a message like:
 "No entries yet!" -->

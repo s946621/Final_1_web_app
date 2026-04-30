@@ -10,7 +10,7 @@
 # *Note: If you try to seed data and get an error about "UNIQUE constraint failed: users.username", it means you have already seeded the database.
 # If you need to seed the database again, simply delete the users.db file and run the seed script again.
 
-from database import get_db, init_db, get_entries_db
+from database import get_db, init_db
 import bcrypt
 
 def seed_database():
@@ -18,7 +18,6 @@ def seed_database():
     init_db()  # Ensure tables are created
     
     conn = get_db()
-    e_conn = get_entries_db()
     
     # Sample users with passwords
     sample_users = [
@@ -27,11 +26,11 @@ def seed_database():
         ("charlie", "MyPassword789#"),
         ("Aa!1", "A!a1")
     ]
-    entries = [
-        ("alice", "2016-03-24", "I am alice. Nice to meet you."),
-        ("bob", "1824-03-31", "Bob me is."),
-        ("charlie", "2222-02-22", "CHARLIE!!!!!"),
-        ("Aa!1", "2020-01-01", "Happy new year!")
+    sample_entries = [
+        ("alice", "Alice's First Entry", "This is the content of Alice's first entry."),
+        ("bob", "Bob's Travel Plans", "Bob is planning a trip to Japan next year."),
+        ("charlie", "Charlie's Recipe", "Charlie's secret recipe for the best chocolate cake."),
+        ("Aa!1", "Aa!1's Note", "This is a note from user Aa!1.")
     ]
     
     try:
@@ -42,16 +41,14 @@ def seed_database():
                 (username, hashed_pw)
             )
             print(f"Created user: {username}")
-
-        for author, created_on, content in entries:
-            # hashed_pw = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
-            e_conn.execute(
-                "INSERT INTO entries (author, created_on, content) VALUES (?, ?, ?)",
-                (author, created_on, content)
-            )
-            print(f"Created entry: {author}")
         
-        e_conn.commit()
+        for author, title, content in sample_entries:
+            conn.execute(
+                "INSERT INTO entries (author, title, content) VALUES (?, ?, ?)",
+                (author, title, content)
+            )
+            print(f"Created author: {author}")
+        
         conn.commit()
         print("\nDatabase seeding complete!")
     
