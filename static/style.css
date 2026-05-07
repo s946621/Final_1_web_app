@@ -1,21 +1,6 @@
 body {
     font-family: 'Brush script MT', cursive;
-     html {
-      --s: 16px; /* control the size*/
-      --c1: #85006e;
-      --c2: #c746c0;
-      --c3: #c746c0;
-    
-      --_g: calc(2*var(--s)*1.732) calc(2*var(--s)) 
-        conic-gradient(from 60deg at 62.5% 50%,var(--c3) 60deg,#0000 0); 
-      background:
-           calc( 2.598*var(--s)/2) calc(var(--s)/ 2)/var(--_g),
-           calc(-0.866*var(--s)/2) calc(var(--s)/-2)/var(--_g),
-        repeating-conic-gradient(var(--c2) 0 90deg,#0000 0 180deg) 
-           0 0/calc(2*var(--s)*1.732) calc(2*var(--s)),
-        repeating-conic-gradient(from 60deg,var(--c1) 0 60deg,var(--c2) 0 180deg) 
-           0 0/calc(var(--s)*1.732) var(--s);
-    }
+    background-image: linear-gradient(to bottom, rgb(199, 70, 192), rgb(133, 0, 110));
     font-size: 28px;
     display: flex;
     justify-content: center;
@@ -57,4 +42,3 @@ hr {
     border-width: 1px;
 border-color:rgb(37, 0, 36);
 } 
-
