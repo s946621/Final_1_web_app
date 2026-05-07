@@ -24,13 +24,13 @@ def seed_database():
         ("alice", "Password123!"),
         ("bob", "SecurePass456@"),
         ("charlie", "MyPassword789#"),
-        ("Aa!1", "A!a1")
+        ("A!a1", "A!a1")
     ]
     sample_entries = [
         ("alice", "Alice's First Entry", "This is the content of Alice's first entry."),
         ("bob", "Bob's Travel Plans", "Bob is planning a trip to Japan next year."),
         ("charlie", "Charlie's Recipe", "Charlie's secret recipe for the best chocolate cake."),
-        ("Aa!1", "Aa!1's Note", "This is a note from user Aa!1.")
+        ("A!a1", "A!a1's Note", "This is a note from user A!a1.")
     ]
     
     try:
