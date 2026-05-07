@@ -1,7 +1,7 @@
 body {
     font-family: 'Brush script MT', cursive;
-    background: #c746c0;
-    font-size: 36px;
+    background-image: linear-gradient(to bottom, #c746c0, #85006e);
+    font-size: 28px;
     display: flex;
     justify-content: center;
     align-items: center;
