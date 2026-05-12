@@ -10,6 +10,21 @@ import re
 app = Flask(__name__)
 app.secret_key = "supersecretkey"
 
+def if_sorted(entry_importance):
+    for x in range(len(entry_importance) - 1):
+        if entry_importance[x] > entry_importance[x + 1]:
+            return False
+    return True
+def importance_sorting(entry_importance):
+    if len(entry_importance) == 0:
+        return entry_importance
+    while not if_sorted(entry_importance):
+        for x in len(entry_importance):
+            for y in range(x, len(entry_importance)):
+                if entry_importance[x] < entry_importance[y]:
+                    entry_importance[x], entry_importance[y] = entry_importance[y], entry_importance[x]
+    return entry_importance
+
 # ---------- PASSWORD VALIDATION ----------
 def is_valid_password(password):
     return (
@@ -87,7 +102,7 @@ def dashboard():
         (session["user"],)
     ).fetchall()
 
-    order_of_showing = sorted(entries, key=lambda x: x["importance"], reverse=True)
+    order_of_showing = importance_sorting([entry["importance"] for entry in entries])
     print(order_of_showing)
 
     # TODO: Close the connection
