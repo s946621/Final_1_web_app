@@ -18,6 +18,7 @@ def init_db():
         CREATE TABLE IF NOT EXISTS entries (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             author TEXT,
+            importance INTEGER,
             title TEXT,
             content TEXT
         )

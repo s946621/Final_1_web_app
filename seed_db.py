@@ -27,10 +27,10 @@ def seed_database():
         ("A!a1", "A!a1")
     ]
     sample_entries = [
-        ("alice", "Alice's First Entry", "This is the content of Alice's first entry."),
-        ("bob", "Bob's Travel Plans", "Bob is planning a trip to Japan next year."),
-        ("charlie", "Charlie's Recipe", "Charlie's secret recipe for the best chocolate cake."),
-        ("A!a1", "A!a1's Note", "This is a note from user A!a1.")
+        ("alice", 1, "Alice's First Entry", "This is the content of Alice's first entry."),
+        ("bob", 1, "Bob's Travel Plans", "Bob is planning a trip to Japan next year."),
+        ("charlie", 1, "Charlie's Recipe", "Charlie's secret recipe for the best chocolate cake."),
+        ("A!a1", 1, "I'm sad", "My name is trash, OK?!?!?!")
     ]
     
     try:
@@ -42,10 +42,10 @@ def seed_database():
             )
             print(f"Created user: {username}")
         
-        for author, title, content in sample_entries:
+        for author, importance, title, content in sample_entries:
             conn.execute(
-                "INSERT INTO entries (author, title, content) VALUES (?, ?, ?)",
-                (author, title, content)
+                "INSERT INTO entries (author, importance, title, content) VALUES (?, ?, ?, ?)",
+                (author, importance, title, content)
             )
             print(f"Created author: {author}")
         

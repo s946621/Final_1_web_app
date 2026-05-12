@@ -87,9 +87,14 @@ def dashboard():
         (session["user"],)
     ).fetchall()
 
+    order_of_showing = sorted(entries, key=lambda x: x["importance"], reverse=True)
+    print(order_of_showing)
+
     # TODO: Close the connection
     conn.close()
 
+    
+    
     # TODO: Pass entries into your template
     # Example:
     return render_template("dashboard.html", entries=entries, username=session["user"])
@@ -112,15 +117,17 @@ def create():
         return redirect(url_for("login"))
 
     if request.method == "POST":
+        importance = int(request.form.get("importance"))
         title = request.form["title"].strip()
         content = request.form["content"].strip()
 
         conn = get_db()
 
         try:
+                
                 conn.execute(
-                    "INSERT INTO entries (author, title, content) VALUES (?, ?, ?)",
-                    (session["user"], title, content,)
+                    "INSERT INTO entries (author, importance, title, content) VALUES (?, ?, ?, ?)",
+                    (session["user"], importance, title, content,)
                 )
                 conn.commit()
 
@@ -160,6 +167,9 @@ def edit(id):
         return "Entry not found"
 
     if request.method == "POST":
+        
+        importance = int(request.form.get("importance"))
+
         title = request.form["title"].strip()
         content = request.form["content"].strip()
 
@@ -168,8 +178,8 @@ def edit(id):
         else:
             try:
                 conn.execute(
-                    "UPDATE entries SET title=?, content=? WHERE id=? AND author=?",
-                    (title, content, id, session["user"],)
+                    "UPDATE entries SET importance=?, title=?, content=? WHERE id=? AND author=?",
+                    (importance, title, content, id, session["user"],)
                 )
                 conn.commit()
                 conn.close()
@@ -193,17 +203,18 @@ def edit(id):
 # - Redirect back to dashboard
 
 
-@app.route("/delete/<int:id>")
+@app.route("/delete/<int:id>", methods=["GET", "POST"])
 def delete(id):
     if "user" not in session:
         return redirect(url_for("login"))
 
     conn = get_db()
-
     entry = conn.execute(
         "SELECT * FROM entries WHERE id=? AND author=?",
         (id, session["user"],)
     ).fetchone()
+    print(entry)
+
 
     if not entry:
         conn.close()

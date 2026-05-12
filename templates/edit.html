@@ -9,9 +9,25 @@
 
     <!-- TODO: Pre-fill title using entry data -->
     <!-- Hint: value="{{ entry['title'] }}" -->
-     <input name="title" placeholder="Title" value="{{ entry['title'] }}">
-     <input name="content" placeholder="Content" value="{{ entry['content'] }}">
-     <button type="submit">Make you feelings truer to you!</button>
+    <input type="range" min="1" max="100" value="50" class="slider" id="importance"><br>
+    <p> How badly must you see this in the future?</p>
+    <span id="sliderValue" class="value"></span>
+    <script>
+        // Get references to slider and display span
+        const slider = document.getElementById('importance');
+        const output = document.getElementById('sliderValue');
+
+        // Update display when slider value changes
+        slider.addEventListener('input', function () {
+            output.textContent = this.value;
+        });
+
+        // Initialize display on page load
+        output.textContent = slider.value;
+    </script><br> 
+    <input name="title" placeholder="Title" value="{{ entry['title'] }}">
+    <input name="content" placeholder="Content" value="{{ entry['content'] }}">
+    <button type="submit">Make you feelings truer to you!</button>
 
     <!-- TODO: Pre-fill content using entry data -->
 
