@@ -7,21 +7,33 @@
 
 <form method="POST">
 
-    <input type="range" min="1" max="100" value="50" class="slider" id="importance"><br>
     <p> How badly must you see this in the future?</p>
-    <span id="sliderValue" class="value"></span>
+    <input name="importance" type="range" min="1" max="100" value="50" class="slider" id="importance">
+    <br>
+    <span id="sliderValue"></span>
+
     <script>
-        // Get references to slider and display span
-        const slider = document.getElementById('importance');
-        const output = document.getElementById('sliderValue');
+        const slider = document.getElementById('importance')
+        const output = document.getElementById('sliderValue')
+
+        // Initialize display
+        output.textContent = slider.value;
 
         // Update display when slider value changes
         slider.addEventListener('input', function () {
             output.textContent = this.value;
         });
-
-        // Initialize display on page load
-        output.textContent = slider.value;
+        
+        fetch('/process_slider', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ slider_value: val })
+            .then(response => response.json())
+            .then(data => console.log('Success:', data))
+            .catch(error => console.error('Error:', error))
+        });
     </script><br>
 
     <input name="title" placeholder="Title"><br>

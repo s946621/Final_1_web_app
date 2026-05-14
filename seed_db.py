@@ -27,10 +27,10 @@ def seed_database():
         ("A!a1", "A!a1")
     ]
     sample_entries = [
-        ("alice", 1, "Alice's First Entry", "This is the content of Alice's first entry."),
-        ("bob", 1, "Bob's Travel Plans", "Bob is planning a trip to Japan next year."),
-        ("charlie", 1, "Charlie's Recipe", "Charlie's secret recipe for the best chocolate cake."),
-        ("A!a1", 1, "I'm sad", "My name is trash, OK?!?!?!")
+        ("alice", 1.1, "Alice's First Entry", "This is the content of Alice's first entry."),
+        ("bob", 1.1, "Bob's Travel Plans", "Bob is planning a trip to Japan next year."),
+        ("charlie", 1.1, "Charlie's Recipe", "Charlie's secret recipe for the best chocolate cake."),
+        ("A!a1", 1.1, "I'm sad", "My name is trash, OK?!?!?!")
     ]
     
     try:

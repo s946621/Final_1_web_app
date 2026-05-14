@@ -9,30 +9,38 @@
 
     <!-- TODO: Pre-fill title using entry data -->
     <!-- Hint: value="{{ entry['title'] }}" -->
-    <input type="range" min="1" max="100" value="50" class="slider" id="importance"><br>
     <p> How badly must you see this in the future?</p>
-    <span id="sliderValue" class="value"></span>
+    <input name="importance" type="range" min="1" max="100" value="50" class="slider" id="importance">
+    <br>
+    <span id="sliderValue"></span>
+
     <script>
-        // Get references to slider and display span
-        const slider = document.getElementById('importance');
-        const output = document.getElementById('sliderValue');
+        const slider = document.getElementById('importance')
+        const output = document.getElementById('sliderValue')
+
+        // Initialize display
+        output.textContent = slider.value;
 
         // Update display when slider value changes
         slider.addEventListener('input', function () {
             output.textContent = this.value;
         });
+        
+        fetch('/process_slider', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ slider_value: val })
+            .then(response => response.json())
+            .then(data => console.log('Success:', data))
+            .catch(error => console.error('Error:', error))
+        });
+    </script><br>
 
-        // Initialize display on page load
-        output.textContent = slider.value;
-    </script><br> 
     <input name="title" placeholder="Title" value="{{ entry['title'] }}">
     <input name="content" placeholder="Content" value="{{ entry['content'] }}">
     <button type="submit">Make you feelings truer to you!</button>
-
-    <!-- TODO: Pre-fill content using entry data -->
-
-    <!-- TODO: Add submit button -->
-
 </form>
 
 <!-- TODO: Add a link back to dashboard -->

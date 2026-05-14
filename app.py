@@ -2,7 +2,7 @@
 # pip install bcrypt
 # pip install flask
 
-from flask import Flask, request, redirect, url_for, render_template, session
+from flask import Flask, request, redirect, url_for, render_template, session, jsonify
 from database import get_db
 import bcrypt
 import re
@@ -15,14 +15,14 @@ def if_sorted(entry_importance):
         if entry_importance[x] > entry_importance[x + 1]:
             return False
     return True
+
 def importance_sorting(entry_importance):
-    if len(entry_importance) == 0:
+    if len(entry_importance) < 2:
         return entry_importance
     while not if_sorted(entry_importance):
-        for x in len(entry_importance):
-            for y in range(x, len(entry_importance)):
-                if entry_importance[x] < entry_importance[y]:
-                    entry_importance[x], entry_importance[y] = entry_importance[y], entry_importance[x]
+        for x in range(len(entry_importance) - 1):
+            if entry_importance[x] > entry_importance[x + 1]:
+                entry_importance[x], entry_importance[x + 1] = entry_importance[x + 1], entry_importance[x]
     return entry_importance
 
 # ---------- PASSWORD VALIDATION ----------
@@ -87,6 +87,14 @@ def register():
 
     return render_template("register.html", error=error)
 
+# slider
+@app.route('/process_slider', methods=['POST'])
+def process_slider():
+    data = request.get_json()
+    slider_val = data.get("slider_value")
+    # print("slider value received:", slider_val)
+    return jsonify({'status': 'received', 'value': slider_val})
+
 @app.route("/dashboard")
 def dashboard():
     if "user" not in session:
@@ -101,8 +109,9 @@ def dashboard():
         "SELECT * FROM entries WHERE author=?",
         (session["user"],)
     ).fetchall()
-
-    order_of_showing = importance_sorting([entry["importance"] for entry in entries])
+    
+    print('start')
+    order_of_showing = importance_sorting([entry['importance'] for entry in entries])
     print(order_of_showing)
 
     # TODO: Close the connection
@@ -132,14 +141,19 @@ def create():
         return redirect(url_for("login"))
 
     if request.method == "POST":
-        importance = int(request.form.get("importance"))
+        conn = get_db()
+
+        ntries = conn.execute(
+            "SELECT * FROM entries WHERE author=?",
+            (session["user"],)
+        ).fetchall()
+
+        a = len(ntries) + 1
+        importance = int(request.form.get("importance")) + a / 10 ** len(f'{a}')
         title = request.form["title"].strip()
         content = request.form["content"].strip()
 
-        conn = get_db()
-
-        try:
-                
+        try:        
                 conn.execute(
                     "INSERT INTO entries (author, importance, title, content) VALUES (?, ?, ?, ?)",
                     (session["user"], importance, title, content,)
@@ -182,8 +196,7 @@ def edit(id):
         return "Entry not found"
 
     if request.method == "POST":
-        
-        importance = int(request.form.get("importance"))
+        importance = int(request.form.get("importance")) + id / 10 ** len(id)
 
         title = request.form["title"].strip()
         content = request.form["content"].strip()
