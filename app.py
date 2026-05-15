@@ -109,10 +109,12 @@ def dashboard():
         "SELECT * FROM entries WHERE author=?",
         (session["user"],)
     ).fetchall()
-    
-    print('start')
-    order_of_showing = importance_sorting([entry['importance'] for entry in entries])
-    print(order_of_showing)
+
+    order_of_showing = [round(a % 1 * 10) for a in importance_sorting([entry['importance'] for entry in entries])]
+    # print(order_of_showing)
+    order_of_showing_entries = []
+    for x in order_of_showing:
+        order_of_showing_entries += [entries[x - 1]]
 
     # TODO: Close the connection
     conn.close()
