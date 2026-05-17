@@ -16,22 +16,22 @@
 <!-- The variable "entries" will come from your Flask route -->
 <!-- Example structure: -->
 
+<div style="height: 125px; width: 335px; border: 1px solid #ccc; overflow: auto; padding: 10px; border-style: 10px; border-color: rgb(0, 0, 0);">
+    {% for entry in entries %}
+        <div>
+            <h3>{{ entry['title'] }}</h3>
 
-{% for entry in entries %}
-    <div>
-        <h3>{{ entry['title'] }}</h3>
+            <!-- TODO: Add Edit link -->
+            <a href="/edit/{{ entry['id'] }}">Edit to make your feelings truer</a>
+            <br>
 
-        <!-- TODO: Add Edit link -->
-        <a href="/edit/{{ entry['id'] }}">Edit to make your feelings truer</a>
-        <br>
+            <!-- TODO: Add Delete link -->
+            <a href="/delete/{{ entry['id'] }}">Delete those bad feelings</a>
 
-        <!-- TODO: Add Delete link -->
-        <a href="/delete/{{ entry['id'] }}">Delete those bad feelings</a>
-
-    </div>
-    <hr>
-{% endfor %}
-
+        </div>
+        <hr>
+    {% endfor %}
+</div>
 
 <!-- TODO: If no entries exist, display a message like:
 "No entries yet!" -->

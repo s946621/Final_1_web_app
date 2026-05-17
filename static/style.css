@@ -1,17 +1,18 @@
 body {
     font-family: 'Brush script MT', cursive;
     background-image: linear-gradient(to bottom, rgb(199, 70, 192), rgb(133, 0, 110));
-    font-size: 28px;
+    font-size: 24px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 97vh;
 }
 .card {
     background: rgb(238, 151, 255);
     padding: 25px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 2, 26, 0.2);
+    max-height: 450px;
     width: 360px;
     text-align: center;
 }
@@ -41,4 +42,4 @@ hr {
     border-style: inset;
     border-width: 1px;
 border-color:rgb(37, 0, 36);
-} 
+}
