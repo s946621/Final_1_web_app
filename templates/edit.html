@@ -10,8 +10,8 @@
     <!-- TODO: Pre-fill title using entry data -->
     <!-- Hint: value="{{ entry['title'] }}" -->
     <p> How badly must you see this in the future?</p>
-    <input name="importance" type="range" min="1" max="100" value="50" class="slider" id="importance">
-    <br>
+    <input name="importance" type="range" min="1" max="100" value="{{ floor(entry['importance'])  }}" class="slider" id="importance">
+    <br> <!-- figure out how to use floor in here                              --^         -->
     <span id="sliderValue"></span>
 
     <script>

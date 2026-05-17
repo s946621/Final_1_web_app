@@ -100,33 +100,22 @@ def dashboard():
     if "user" not in session:
         return redirect(url_for("login"))
 
-    # TODO: Connect to the database
     conn = get_db()
-
-    # TODO: Get all entries that belong to the logged-in user
-    # Example:
     entries = conn.execute(
         "SELECT * FROM entries WHERE author=?",
         (session["user"],)
     ).fetchall()
 
     order_of_showing = [round(a % 1 * 10) for a in importance_sorting([entry['importance'] for entry in entries])]
-    # print(order_of_showing)
-    order_of_showing_entries = []
+    correctly_ordered_entries = []
     for x in order_of_showing:
-        order_of_showing_entries += [entries[x - 1]]
+        correctly_ordered_entries += [conn.execute(
+            "SELECT * FROM entries WHERE id=?",
+            (x,)
+        ).fetchone()]
 
-    # TODO: Close the connection
     conn.close()
-
-    
-    
-    # TODO: Pass entries into your template
-    # Example:
-    return render_template("dashboard.html", entries=entries, username=session["user"])
-
-    # TEMPORARY (remove later)
-    # return render_template("dashboard.html", username=session["user"])
+    return render_template("dashboard.html", entries=correctly_ordered_entries, username=session["user"])
 
 
 # ---------- CREATE ----------
@@ -146,8 +135,7 @@ def create():
         conn = get_db()
 
         ntries = conn.execute(
-            "SELECT * FROM entries WHERE author=?",
-            (session["user"],)
+            "SELECT * FROM entries"
         ).fetchall()
 
         a = len(ntries) + 1
@@ -198,7 +186,7 @@ def edit(id):
         return "Entry not found"
 
     if request.method == "POST":
-        importance = int(request.form.get("importance")) + id / 10 ** len(id)
+        importance = int(request.form.get("importance")) + id / 10 ** len(f'{id}')
 
         title = request.form["title"].strip()
         content = request.form["content"].strip()
