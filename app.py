@@ -180,6 +180,7 @@ def edit(id):
         "SELECT * FROM entries WHERE id=? AND author=?",
         (id, session["user"],)
     ).fetchone()
+    imtc_wnot_id = round(entry['importance'] // 1)
 
     if not entry:
         conn.close()
@@ -211,7 +212,8 @@ def edit(id):
         return redirect(url_for("dashboard"))
 
     conn.close()
-    return render_template("edit.html", entry=entry)
+    
+    return render_template("edit.html", entry=entry, imtc_wnot_id=imtc_wnot_id)
 
 
 # ---------- DELETE ----------
