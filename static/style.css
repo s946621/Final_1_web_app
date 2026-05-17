@@ -5,7 +5,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 97vh;
+    height: 100vh;
 }
 .card {
     background: rgb(238, 151, 255);
@@ -32,7 +32,6 @@ button {
 .error {
     color: rgb(26, 0, 121);
 }
-
 hr {
         display: block;
     margin-top: 0.5em;
