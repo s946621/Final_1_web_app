@@ -15,7 +15,6 @@ def if_sorted(entry_importance):
         if entry_importance[x] > entry_importance[x + 1]:
             return False
     return True
-
 def importance_sorting(entry_importance):
     if len(entry_importance) < 2:
         return entry_importance
@@ -24,6 +23,12 @@ def importance_sorting(entry_importance):
             if entry_importance[x] > entry_importance[x + 1]:
                 entry_importance[x], entry_importance[x + 1] = entry_importance[x + 1], entry_importance[x]
     return entry_importance
+
+# ---------- CODE SPACE FOR MINSEONG ----------
+
+
+
+# ---------- END OF SPACE ---------- 
 
 # ---------- PASSWORD VALIDATION ----------
 def is_valid_password(password):
@@ -117,7 +122,6 @@ def dashboard():
     conn.close()
     return render_template("dashboard.html", entries=correctly_ordered_entries, username=session["user"])
 
-
 # ---------- CREATE ----------
 # TODO: Create a route like /create
 # This page should:
@@ -160,14 +164,12 @@ def create():
 
     return render_template("create.html")
 
-
 # ---------- UPDATE ----------
 # TODO: Create a route like /edit/<id>
 # This page should:
 # - Load existing data
 # - Show it in a form
 # - Update the database on submit
-
 
 @app.route("/edit/<int:id>", methods=["GET", "POST"])
 def edit(id):
@@ -215,13 +217,11 @@ def edit(id):
     
     return render_template("edit.html", entry=entry, imtc_wnot_id=imtc_wnot_id)
 
-
 # ---------- DELETE ----------
 # TODO: Create a route like /delete/<id>
 # This should:
 # - Delete an entry from the database
 # - Redirect back to dashboard
-
 
 @app.route("/delete/<int:id>", methods=["GET", "POST"])
 def delete(id):
