@@ -109,7 +109,7 @@ def process_slider():
 def dashboard():
     if "user" not in session:
         return redirect(url_for("login"))
-
+    
     conn = get_db()
     entries = conn.execute(
         "SELECT * FROM entries WHERE author=?",
@@ -127,14 +127,6 @@ def dashboard():
     conn.close()
     return render_template("dashboard.html", entries=correctly_ordered_entries, username=session["user"])
 
-# ---------- CREATE ----------
-# TODO: Create a route like /create
-# This page should:
-# - Show a form (GET)
-# - Save data to the database (POST)
-# - Redirect back to dashboard
-# NOTE: Remove the triple """ before and after each route to 'uncomment'
-
 @app.route("/create", methods=["GET", "POST"])
 def create():
     if "user" not in session:
@@ -147,7 +139,8 @@ def create():
             "SELECT * FROM entries"
         ).fetchall()
 
-        a = len(ntries) + 1
+        a = [b['id'] for b in ntries][-1] + 1
+
         importance = int(request.form.get("importance")) + a / 10 ** len(f'{a}')
         title = request.form["title"].strip()
         content = request.form["content"].strip()
@@ -168,13 +161,6 @@ def create():
         return redirect(url_for("dashboard"))
 
     return render_template("create.html")
-
-# ---------- UPDATE ----------
-# TODO: Create a route like /edit/<id>
-# This page should:
-# - Load existing data
-# - Show it in a form
-# - Update the database on submit
 
 @app.route("/edit/<int:id>", methods=["GET", "POST"])
 def edit(id):
@@ -224,12 +210,6 @@ def edit(id):
     
     return render_template("edit.html", entry=entry, imtc_wnot_id=imtc_wnot_id)
 
-# ---------- DELETE ----------
-# TODO: Create a route like /delete/<id>
-# This should:
-# - Delete an entry from the database
-# - Redirect back to dashboard
-
 @app.route("/delete/<int:id>", methods=["GET", "POST"])
 def delete(id):
     if "user" not in session:
@@ -269,6 +249,19 @@ def delete(id):
 def logout():
     session.pop("user", None)
     return redirect(url_for("login"))
+
+@app.route("/view/<int:id>")
+def view_entry(id):
+    if "user" not in session:
+        return redirect(url_for("login"))
+    
+    conn = get_db()
+    entry = conn.execute(
+        "SELECT * FROM entries WHERE id=? AND author=?",
+        (id, session["user"],)
+    ).fetchone()
+
+    return render_template("viewing.html", entry=entry)
 
 # ---------- RUN ----------
 if __name__ == "__main__":

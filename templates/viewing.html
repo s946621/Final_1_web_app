@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="height: 125px; width: 335px; border: 1px solid #ccc; overflow: auto; padding: 10px; border-style: 10px; border-color: rgb(0, 0, 0);">
+    <h3>{{ entry["title"] }}</h3>
+</div>
+<div style="height: 125px; width: 335px; border: 1px solid #ccc; overflow: auto; padding: 10px; border-style: 10px; border-color: rgb(0, 0, 0);">
+    <p>{{ entry["content"] }}</p>
+</div>
+<a href="{{ url_for("dashboard") }}">I am done revisiting.</a>
+
+{% endblock %}

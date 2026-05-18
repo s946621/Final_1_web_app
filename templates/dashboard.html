@@ -20,7 +20,8 @@
     {% for entry in entries: %}
         <div>
             <h5>Importance: {{ '{:.2f}'.format(entry['importance'] // 1).rstrip('0').rstrip('.') }}</h5>
-            <h3>{{ entry['title'] }}</h3>
+            <a href="/view/{{ entry['id'] }}" style="font-size: 30px;"><b>{{ entry['title'] }}</b></a>
+            <br>
 
             <!-- TODO: Add Edit link -->
             <a href="/edit/{{ entry['id'] }}">Edit to make your feelings truer</a>
