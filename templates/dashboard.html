@@ -17,8 +17,9 @@
 <!-- Example structure: -->
 
 <div style="height: 125px; width: 335px; border: 1px solid #ccc; overflow: auto; padding: 10px; border-style: 10px; border-color: rgb(0, 0, 0);">
-    {% for entry in entries %}
+    {% for entry in entries: %}
         <div>
+            <h5>Importance: {{ '{:.2f}'.format(entry['importance'] // 1).rstrip('0').rstrip('.') }}</h5>
             <h3>{{ entry['title'] }}</h3>
 
             <!-- TODO: Add Edit link -->

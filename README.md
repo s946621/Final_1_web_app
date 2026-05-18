@@ -4,7 +4,7 @@
 
 When you finish, add your names and a demo video link here, then submit one link to your project repository.
 
-**Group Members:** (list all group members here)  
+**Group Members:** Andrea Reagan (not in video), Minseong Hong, Mason Thomas  
 * [Demo Video (1 per group)](http://includeyourlinkhere)
 
 ---

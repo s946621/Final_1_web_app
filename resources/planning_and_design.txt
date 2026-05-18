@@ -2,37 +2,39 @@
 APP PLANNING & DESIGN
 =========================
 
-1. PROJECT IDEA
+1. PROJECT NAME & THEME
 -------------------------
-- What is your app called?
-- What type of app is it? (journal, listings, notes, etc.)
-- What will users use your app for?
+- MyPrivateLife
+- pink / yellow color scheme
+- To access the app you need a "key" or a password
 
-2. DATA MODEL (WHAT ARE YOU STORING?)
+2. CORE FUNCTIONALITY
 -------------------------
-- What is a single “entry” in your app?
-- What fields will each entry have? (title, content, date, etc.)
-- How will entries be connected to a user?
+- Diary type function, take personal notes that are 100% private
+- customization of diary optional
 
-3. CORE FEATURES (CRUD)
--------------------------
-- What can users CREATE?
-- What will they see on the main page (READ)?
-- What can users EDIT (UPDATE)?
-- What can users DELETE?
+3. SECRET OR PERSONALIZED CONTENT
 
-4. USER FLOW
 -------------------------
-- What happens after a user logs in?
-- What pages/routes will your app need? (dashboard, create, edit, etc.)
-- Describe a typical user experience from login → using your app
+- What content will users see after logging in? You see a diary that is randomized (Can be hypothetically customized later)
+- Will this content change depending on who is using the app (admin, user, special user?) no (unless customized hypothetically)
 
-5. USER EXPERIENCE (UX)
+4. USER EXPERIENCE (UX) DESIGN
 -------------------------
-- How should your app look and feel?
-- How will users navigate between pages?
-- How will entries be displayed (list, cards, etc.)?
+- How should your app look and feel? more cozy like a small diary
+- How will users navigate between pages? arrow keys to flip pages, shift + enter to start typing
+once typing arrow keys behave as they do on writing software, use shift + enter to
+exit typing mode
 
-6. OPTIONAL FEATURES
+5. SECURITY FEATURES
 -------------------------
-- What extra features might you add? (search, tags, sorting, etc.)
+- What password and authentication rules will you enforce?  
+- How will you protect secret pages from unauthorized access?
+The whole app is secret, you set a password at first and if you get it wrong upon next
+login five times in a row, you will be put on a 5 minute time out before you can log in
+again.
+
+6. OPTIONAL CREATIVE ENHANCEMENTS
+-------------------------
+- What customization or fun features could users enjoy? fonts, sizes, bold/italic/underline
+- Are there interactive elements, like games, quizzes, or badges, you could include? stickers

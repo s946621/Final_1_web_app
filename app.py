@@ -24,11 +24,16 @@ def importance_sorting(entry_importance):
                 entry_importance[x], entry_importance[x + 1] = entry_importance[x + 1], entry_importance[x]
     return entry_importance
 
-# ---------- CODE SPACE FOR MINSEONG ----------
+# minseong: "register" "sign in" "explain fibo"
+fibo = [1,1]
+length = 33
 
-
-
-# ---------- END OF SPACE ---------- 
+def fibonacci_sequence():
+    return [fibo[-2] + fibo[-1]]
+while True:
+    fibo += fibonacci_sequence()
+    if len(fibo) >= length:
+        break
 
 # ---------- PASSWORD VALIDATION ----------
 def is_valid_password(password):
@@ -182,6 +187,8 @@ def edit(id):
         "SELECT * FROM entries WHERE id=? AND author=?",
         (id, session["user"],)
     ).fetchone()
+    if entry is None:
+        return redirect(url_for("login"))
     imtc_wnot_id = round(entry['importance'] // 1)
 
     if not entry:
@@ -233,18 +240,16 @@ def delete(id):
         "SELECT * FROM entries WHERE id=? AND author=?",
         (id, session["user"],)
     ).fetchone()
-    print(entry)
-
 
     if not entry:
         conn.close()
-        error =  "Entry not found"
-    
+        return redirect(url_for("login"))
+
     if request.method == "POST":
         try:
             conn.execute(
-                "DELETE FROM entries WHERE id=?",
-                (id,)
+                "DELETE FROM entries WHERE id=? AND author=?",
+                (id, session["user"],)
             )
             conn.commit()
         except:
@@ -254,7 +259,11 @@ def delete(id):
         return redirect(url_for("dashboard"))
     
     conn.close()
-    return render_template("delete.html", entry=entry)
+    if id in fibo:
+        text = "EASTER EGG!!!"
+    else:
+        text = ''
+    return render_template("delete.html", entry=entry, text=text)
 
 @app.route("/logout")
 def logout():
