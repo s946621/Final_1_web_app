@@ -260,8 +260,10 @@ def view_entry(id):
         "SELECT * FROM entries WHERE id=? AND author=?",
         (id, session["user"],)
     ).fetchone()
+    if entry is None:
+        return redirect(url_for("login"))
 
-    return render_template("viewing.html", entry=entry)
+    return render_template("view.html", entry=entry)
 
 # ---------- RUN ----------
 if __name__ == "__main__":
