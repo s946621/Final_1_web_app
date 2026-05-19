@@ -8,8 +8,12 @@
 <p>Are you sure you want to delete this entry?</p>
 
 <!-- TODO: Show entry title or content -->
-<h3>{{ entry["title"] }}</h3>
-<p>{{ entry["content"] }}</p>
+<div style="height: 125px; width: 335px; border: 1px solid #ccc; overflow: auto; padding: 10px; border-style: 10px; border-color: rgb(0, 0, 0);">
+    <h3>{{ entry["title"] }}</h3>
+</div>
+<div style="height: 125px; width: 335px; border: 1px solid #ccc; overflow: auto; padding: 10px; border-style: 10px; border-color: rgb(0, 0, 0);">
+    <p>{{ entry["content"] }}</p>
+</div>
 <p>{{ text }}</p>
 <!-- TODO: Add a button to confirm delete -->
 <form method="POST">
