@@ -20,7 +20,10 @@
     {% for entry in entries: %}
         <div>
             <h5>Importance: {{ '{:.2f}'.format(entry['importance'] // 1).rstrip('0').rstrip('.') }}</h5>
-            <a href="/view/{{ entry['id'] }}" style="font-size: 30px;"><b>{{ entry['title'] }}</b></a>
+
+            <h3>{{ entry['title'] }}</h3>
+
+            <a href="/view/{{ entry['id'] }}" style="font-size: 30px;">Revisit this memory.</a>
             <br>
 
             <!-- TODO: Add Edit link -->
