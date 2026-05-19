@@ -24,7 +24,6 @@ def importance_sorting(entry_importance):
                 entry_importance[x], entry_importance[x + 1] = entry_importance[x + 1], entry_importance[x]
     return entry_importance
 
-# minseong: "register" "sign in" "explain fibo"
 fibo = [1,1]
 length = 33
 
