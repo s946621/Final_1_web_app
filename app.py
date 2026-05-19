@@ -101,7 +101,6 @@ def register():
 def process_slider():
     data = request.get_json()
     slider_val = data.get("slider_value")
-    # print("slider value received:", slider_val)
     return jsonify({'status': 'received', 'value': slider_val})
 
 @app.route("/dashboard")
