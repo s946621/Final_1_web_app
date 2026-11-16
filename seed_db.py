@@ -11,54 +11,14 @@
 # If you need to seed the database again, simply delete the users.db file and run the seed script again.
 
 from database import get_db, init_db
-import bcrypt
 
 def seed_database():
     """Add sample users to the database"""
     init_db()  # Ensure tables are created
     
     conn = get_db()
-    
-    # Sample users with passwords
-    sample_users = [
-        ("alice", "Password123!"),
-        ("bob", "SecurePass456@"),
-        ("charlie", "MyPassword789#"),
-        ("A!a1", "A!a1")
-    ]
-    sample_entries = [
-        ("alice", 1.1, "Alice's First Entry", "This is the content of Alice's first entry."),
-        ("bob", 1.2, "Bob's Travel Plans", "Bob is planning a trip to Japan next year."),
-        ("charlie", 1.3, "Charlie's Recipe", "Charlie's secret recipe for the best chocolate cake."),
-        ("A!a1", 1.4, "I'm sad", "My name is trash, OK?!?!?!"),
-        ("A!a1", 2.5, "Note", "I am fake.")
-    ]
-    
-    try:
-        for username, password in sample_users:
-            hashed_pw = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
-            conn.execute(
-                "INSERT INTO users (username, password) VALUES (?, ?)",
-                (username, hashed_pw)
-            )
-            print(f"Created user: {username}")
-        
-        for author, importance, title, content in sample_entries:
-            conn.execute(
-                "INSERT INTO entries (author, importance, title, content) VALUES (?, ?, ?, ?)",
-                (author, importance, title, content)
-            )
-            print(f"Created author: {author}")
-        
-        conn.commit()
-        print("\nDatabase seeding complete!")
-    
-    except Exception as e:
-        conn.rollback()
-        print(f"Error: {e}")
-    
-    finally:
-        conn.close()
+
+    # create new samples later
 
 if __name__ == "__main__":
     seed_database()
