@@ -12,7 +12,7 @@ app.secret_key = "supersecretkey"
 def login():
     error = "Hello World"
 
-    return render_template("login.html", error=error)
+    return render_template("placeholder.html", error=error)
 
 # ---------- RUN ----------
 if __name__ == "__main__":
