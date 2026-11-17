@@ -1,149 +1,132 @@
-# Coding I – Web Application Project
+# RESTful Front-End Web App:
 
-**Due date:** 5/14 @ Midnight  
+## Project Title - 
 
-When you finish, add your names and a demo video link here, then submit one link to your project repository.
+**Team Members:**
 
-**Group Members:** Andrea Reagan (not in video), Minseong Hong, Mason Thomas  
-* [Demo Video (1 per group)](https://docs.google.com/videos/d/19zmnJjIi4XVdpIdtB9OnCftDiRaSv5LdjV3VOrXLHt8/edit?usp=sharing)
+- 
+- 
+- 
 
----
+**Walk-Through Video Link:**
+- [Add your video link here]
 
-### Project Overview
 
-You will begin with a **pre-built login and authentication system**. Your job is to **extend this project into a full CRUD web application** using Flask and a database.
+**Describe your app layout here or paste/link an image of your hand-drawn or digital wireframe:**
 
-Your application must allow users to:
-- Log in (already implemented)
-- Create data
-- View data
-- Edit data
-- Delete data
+- 
 
-Each user should only be able to access and modify **their own data**.
 
----
 
-### Helpful Links for This Unit:
- - [Flask Documentation](https://flask.palletsprojects.com/en/2.3.x/)
- - [SQLite Documentation](https://www.sqlite.org/docs.html)
- - [Bcrypt Documentation](https://pypi.org/project/bcrypt/)
- - [Regex Tutorial for Python](https://docs.python.org/3/library/re.html)
- - [GitHub Cheat-Sheet](https://education.github.com/git-cheat-sheet-education.pdf)
- - [Flask Tutorial](https://www.youtube.com/watch?t=347&v=Z1RJmh_OqeA) (we are already in a virtual environment so ignore comments about env)
 
----
+## Step-by-Step Checklist & Rubric
 
-### Project Requirements:
+# Phase 1: Planning & API Setup [10 pts]
+*Set up your mock API and plan your data model.*
+
+- [ ] **Domain & Wireframe:** Choose a unique domain with two related entities (e.g., Clubs & Students). Sketch a wireframe showing all your app pages.
+- [ ] **Mock API:** Create an account on mockapi.io and set up two resources with at least 3 sample records each.
+- [ ] **API Constants:** Copy your base URL and add these constants to the top of all your `.js` files:
+  ```js
+  const API_ORIGIN = "https://XXXXXXXX.mockapi.io";
+  const API_URL = `${API_ORIGIN}/api/v1`;
+  ```
 
 ---
 
-### Part I: Setup & Understanding the Base Code (10 pts)
-- Fork the provided repository.
-- Successfully run the starter project locally.
-- Demonstrate understanding of:
-  - Where login happens
-  - How users are stored
-  - How routes/templates are structured
-- Make at least one small modification (e.g., change text on a page) to confirm setup is working.
+# Phase 2: Project Structure [10 pts]
+*Build the folder layout.*
+
+- [ ] **Folders & Files:** Create `index.html`, `style.css`, and two subdirectories for your resources. Add 7 HTML files: 4 for the primary resource (list, detail, create, edit) + 3 for the secondary (list, detail, create).
+- [ ] **Navigation & Styling:** Every page has a `<nav>` with links between resources and links to `../style.css`.
 
 ---
 
-### Part II: Planning Your CRUD App (10 pts)
-- Decide what your app will store (journal, listings, notes, etc.).
-- Clearly define:
-  - What a “record”/“entry” looks like (fields in your database)
-- Plan required features:
-  - Create
-  - Read
-  - Update
-  - Delete
-- Sketch or describe:
-  - Pages/routes you will need
-  - Basic user flow (what happens after login)
-- Complete `planning_and_design.txt`.
+# Phase 3: Display All Records (GET Collection) [15 pts]
+*Load and show a list of all primary resource records.*
+
+**Success Criteria:** When you load the list page, you see all records from your API displayed as cards with images, names, and descriptions.
+
+- [ ] **Fetch & Loop:** Write an async function that fetches all records and loops through them to build card HTML.
+- [ ] **Render Cards:** Insert cards into a container. Each card shows: image, name, description, and an "Edit" link with the ID in the URL (`?id=3`).
+- [ ] **Add New Link:** Include an "Add New [Item]" button linking to the create page.
+- [ ] **Click Navigation:** Clicking a card (not Edit) navigates to the detail page with the ID.
+- [ ] **Load on Start:** Call the fetch function when the page loads.
 
 ---
 
-### Part III: Database for App Content (10 pts)
-- Create a **new database table** (separate from users).
-- Include appropriate fields (e.g., title, content, timestamp, user_id).
-- Ensure:
-  - Data persists after restarting the app
-  - Each entry is linked to a specific user
+# Phase 4: Display Single Record (GET by ID) [15 pts]
+*Load and show details for one specific record.*
+
+**Success Criteria:** Click a card from the list. See the detail page with the record's info, an Edit button, and related records listed below.
+
+- [ ] **Extract ID:** Get the ID from the query string using `URLSearchParams`.
+- [ ] **Fetch & Display:** Fetch the record by ID and display its details on the page.
+- [ ] **Show Related Items:** Fetch the other resource type and display records that match (e.g., students linked to a club). Link each to its own detail page.
+- [ ] **Edit Link:** Add an "Edit" button linking to the edit page with the ID.
 
 ---
 
-### Part IV: READ – Display Data (10 pts)
-- After login, users are taken to a **main page/dashboard**.
-- This page displays a list of entries from the database.
-- Requirements:
-  - Data is clearly formatted
-  - Only shows entries belonging to the logged-in user
-  - Page updates correctly when new data is added
+# Phase 5: Create New Records (POST) [15 pts]
+*Let users add new records via a form.*
+
+**Success Criteria:** Fill out the form, submit, and the new record appears in the list immediately.
+
+- [ ] **Form & Handler:** Create a form with labeled inputs and a submit button. Prevent default submission and read the form values.
+- [ ] **POST Request:** Send a POST request to the API with the data as JSON and correct headers.
+- [ ] **Default Image:** If image is empty, use a placeholder service.
+- [ ] **Redirect:** After success, redirect to the list page. The new record should appear.
 
 ---
 
-### Part V: CREATE – Add New Entries (10 pts)
-- Provide a form/page to create new entries.
-- On submission:
-  - Data is saved to the database
-  - Entry is linked to the logged-in user
-- User is redirected back to the main page and sees the new entry.
+# Phase 6: Update Records (PUT) [15 pts]
+*Let users edit existing records.*
+
+**Success Criteria:** Click Edit, change a field, save, and see the change appear on the detail page and list immediately.
+
+- [ ] **Load & Pre-fill:** Get the ID from the URL, fetch the record, and fill the form with current values.
+- [ ] **Form & Handler:** Read the updated values from the form.
+- [ ] **PUT Request:** Send a PUT request to the API to save the changes.
+- [ ] **Redirect:** After success, redirect to the detail page. Changes should be visible.
 
 ---
 
-### Part VI: UPDATE – Edit Entries (10 pts)
-- Users can edit existing entries.
-- Requirements:
-  - Edit form pre-fills with current data
-  - Changes are saved to the database
-  - Only the owner can edit their entries
+# Phase 7: Delete Records (DELETE) [10 pts]
+*Let users remove records.*
+
+**Success Criteria:** Click Delete, confirm, and the record disappears from the API and list.
+
+- [ ] **Delete Button:** Add a "Delete [Item]" button to the edit page.
+- [ ] **DELETE Request:** When clicked, send a DELETE request with a confirmation prompt.
+- [ ] **Redirect:** After success, redirect to the list page.
 
 ---
 
-### Part VII: DELETE – Remove Entries (10 pts)
-- Users can delete entries.
-- Requirements:
-  - Entry is removed from the database
-  - Only the owner can delete their entries
-  - (Optional but encouraged) confirmation before deletion
+# Phase 8: Code Walkthrough Video [10 pts]
+*Demonstrate your project with a screen-share recording (5–10 minutes).*
+
+- [ ] **App Demo:** Show the app running. Create, read, edit, and delete a record. Narrate what's happening.
+- [ ] **Code Explanation:** Open a fetch function and explain how it works. Show your API endpoint in the browser and explain the JSON (each team member must explain a different fetch function).
+- [ ] **Walkthrough:** Explain how your resources relate and how data flows through your app.
 
 ---
 
-### Part VIII: User Data Protection & Access Control (5 pts)
-- Users cannot:
-  - View other users’ data
-  - Edit or delete entries they do not own
-- Proper checks are implemented in routes (not just hidden buttons).
+# Phase 9: Polish & Error Handling [5 pts]
+*Make your app more robust.*
+
+- [ ] **Error Handling:** Wrap fetch calls in `try/catch` to handle errors.
+- [ ] **User Feedback:** Show a simple success or error message when actions complete.
 
 ---
 
-### Part IX: Reflection + Demo Video (25 pts)
-- Demo must show:
-  - Creating, viewing, editing, deleting entries
-  - Login working with your CRUD system
-  - All team members must speak
-- Reflection includes:
-  - What was hardest to implement
-  - One bug or issue you solved
-  - One improvement you would add
+# Bonus Extension Challenges [Extra Credit - 10+ pts each]
+*Go beyond the basics. Complete all core phases first, then pick extras.*
+
+- [ ] **Phase 9+: Master Relationships** – On the edit page, let users add/remove related items (e.g., add students to a club via a dropdown). Filter and display them on the detail page.
+- [ ] **Third Resource:** Add a third resource type (e.g., "Events" linked to clubs) with create and list pages.
+- [ ] **Live Search:** Add a search input to the list page that filters cards as you type.
+- [ ] **Sort Options:** Add buttons to sort the list alphabetically or by date created.
+- [ ] **Cascading Deletes:** When a record is deleted, automatically remove its ID from all related records' arrays.
+- [ ] **Advanced UI:** Add animations, dark mode, or better styling with a CSS framework.
 
 ---
-
-### Optional Bonus (+10 pts each)
-- Add search, filtering, or sorting
-- Improve UI with CSS
-- Add timestamps or ordering (newest first)
-- Add categories/tags
-
----
-
-### Key Focus of This Project
-- You are no longer **building authentication**
-- You are **building a functional database-driven application**
-
-The most important part of this project is:
-- Implementing full CRUD functionality
-- Connecting data to the logged-in user
-- Managing and displaying database content properly
