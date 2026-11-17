@@ -8,9 +8,11 @@ app = Flask(__name__)
 app.secret_key = "supersecretkey"
 
 # ---------- ROUTES ----------
+
+# how did interperet it wrong?
 @app.route("/", methods=["GET"])
 def login():
-    error = "Hello World"
+    error = {'content': "Hello World"}
 
     return render_template("placeholder.html", error=error)
 
