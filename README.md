@@ -4,9 +4,7 @@
 
 **Team Members:**
 
-- 
-- 
-- 
+- Mason Thomas
 
 **Walk-Through Video Link:**
 - [Add your video link here]
@@ -15,9 +13,6 @@
 **Describe your app layout here or paste/link an image of your hand-drawn or digital wireframe:**
 
 - 
-
-
-
 
 ## Step-by-Step Checklist & Rubric
 
